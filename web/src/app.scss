@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.text-field {
+    margin: 10px;
+    width: 70%;
+
+    input {
+        cursor:no-drop;
+    }
+
+    textarea {
+        cursor:no-drop;
+
+    }
+}

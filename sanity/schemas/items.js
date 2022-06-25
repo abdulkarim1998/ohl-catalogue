@@ -1,11 +1,41 @@
 export default {
-    name: 'items',
-    title: 'Items',
+    name: 'materials',
+    title: 'Materials',
     type: 'document',
     fields: [
         {
-            name: 'itemName',
-            title: 'Item Name',
+            name: 'materialName',
+            title: 'Material Name',
+            type: "string"
+        },
+        {
+            name: 'itemID',
+            title: 'Item ID',
+            type: "string"
+        },
+        {
+            name: 'sapNumber',
+            title: 'SAP Number',
+            type: "string"
+        },
+        {
+            name: 'hookupNo',
+            title: 'Hook Up Number',
+            type: "string"
+        },
+        {
+            name: 'materialDescription',
+            title: 'Material Description',
+            type: "string"
+        },
+        {
+            name: 'unit',
+            title: 'Unit',
+            type: "string"
+        },
+        {
+            name: 'remarks',
+            title: 'Remarks',
             type: "string"
         },
         {
