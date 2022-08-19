@@ -2,22 +2,13 @@ import { useEffect, useState } from "react";
 import { Autocomplete } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
-import { urlFor, client } from "../../../../client";
+import { client } from "../../../../client";
 
 import "./fields.scss";
 import Field from "./Field";
-const top100Films = [
-  { label: "The Shawshank Redemption", year: 1994 },
-  { label: "The Godfather", year: 1972 },
-  { label: "The Godfather: Part II", year: 1974 },
-  { label: "The Dark Knight", year: 2008 },
-  { label: "12 Angry Men", year: 1957 },
-  { label: "Schindler's List", year: 1993 },
-  { label: "Pulp Fiction", year: 1994 },
-];
 
-const Fields = () => {
-  const [item, setItems] = useState([]);
+const Fields = ({ selected, setSelected }) => {
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const query = '*[_type=="materials"]';
@@ -30,23 +21,53 @@ const Fields = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const selection = items.map((item) => {
+    return { label: item.materialName, id: item._id };
+  });
+
   return (
     <div style={{ width: "100%" }}>
       <Autocomplete
         disablePortal
         style={{ width: "100%" }}
         id="combo-box-demo"
-        options={top100Films}
+        options={selection}
+        onSelect={(e) => {
+          const find = items.find(
+            (item) => item.materialName == e.target.value
+          );
+          setSelected(find);
+        }}
         sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Movie" />}
+        renderInput={(params) => <TextField {...params} label="Item" />}
       />
 
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
-      <Field Icon={AccessibilityIcon} fieldName="Test" value="Test" />
+      <Field
+        Icon={AccessibilityIcon}
+        fieldName="Material Name"
+        value={selected?.materialName}
+      />
+      <Field
+        Icon={AccessibilityIcon}
+        fieldName="Item ID"
+        value={selected?.itemID}
+      />
+      <Field
+        Icon={AccessibilityIcon}
+        fieldName="Hookup Number"
+        value={selected?.hookupNo}
+      />
+      <Field
+        Icon={AccessibilityIcon}
+        fieldName="Sap Number"
+        value={selected?.sapNumber}
+      />
+      <Field Icon={AccessibilityIcon} fieldName="unit" value={selected?.unit} />
+      <Field
+        Icon={AccessibilityIcon}
+        fieldName="Material Description"
+        value={selected?.materialDescription}
+      />
     </div>
   );
 };
