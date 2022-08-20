@@ -1,0 +1,33 @@
+.app__c {
+    display: flex;
+    // justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    // background-color: red;
+}
+
+.app__c-logo {
+    margin-top: 2em;
+}
+
+.app__c-fields {
+    width: 80%;
+    margin-top: 4.5em;
+    display: flex;
+
+    img {
+        margin-left: 2rem;
+        width: 500px;
+        height: 400px;
+    }
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            margin-top: 1rem;
+            width: 70%;
+        }
+    }
+}
