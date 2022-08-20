@@ -15,7 +15,7 @@ const Field = ({ Icon, fieldName, value }) => {
       >
         <Icon />
         <span>{fieldName}</span>
-        <span>{value}</span>
+        <span style={{ color: "blue" }}>{value}</span>
       </motion.div>
     </>
   );

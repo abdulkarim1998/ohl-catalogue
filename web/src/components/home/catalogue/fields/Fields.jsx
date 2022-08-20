@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Autocomplete } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import AccessibilityIcon from "@mui/icons-material/Accessibility";
+import DescriptionIcon from "@mui/icons-material/Description";
+import CategoryIcon from "@mui/icons-material/Category";
+import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import BarChartIcon from "@mui/icons-material/BarChart";
+
 import { client } from "../../../../client";
 
 import "./fields.scss";
@@ -43,28 +49,28 @@ const Fields = ({ selected, setSelected }) => {
       />
 
       <Field
-        Icon={AccessibilityIcon}
+        Icon={CategoryIcon}
         fieldName="Material Name"
         value={selected?.materialName}
       />
       <Field
-        Icon={AccessibilityIcon}
+        Icon={FeaturedPlayListIcon}
         fieldName="Item ID"
         value={selected?.itemID}
       />
       <Field
-        Icon={AccessibilityIcon}
+        Icon={ConfirmationNumberIcon}
         fieldName="Hookup Number"
         value={selected?.hookupNo}
       />
       <Field
-        Icon={AccessibilityIcon}
+        Icon={ConfirmationNumberIcon}
         fieldName="Sap Number"
         value={selected?.sapNumber}
       />
-      <Field Icon={AccessibilityIcon} fieldName="unit" value={selected?.unit} />
+      <Field Icon={BarChartIcon} fieldName="unit" value={selected?.unit} />
       <Field
-        Icon={AccessibilityIcon}
+        Icon={DescriptionIcon}
         fieldName="Material Description"
         value={selected?.materialDescription}
       />
