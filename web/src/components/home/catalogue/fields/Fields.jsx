@@ -34,7 +34,7 @@ const Fields = ({ selected, setSelected }) => {
     <div style={{ width: "100%" }}>
       <Autocomplete
         disablePortal
-        style={{ width: "100%" }}
+        style={{ width: "100%", backgroundColor: "white", borderRadius: "10px" }}
         id="combo-box-demo"
         options={selection}
         onSelect={(e) => {
