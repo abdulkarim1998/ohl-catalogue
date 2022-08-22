@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./catalogue.scss";
 import Fields from "./fields/Fields";
+import { motion } from "framer-motion";
 import { urlFor } from "../../../client";
 
 const Catalogue = () => {
@@ -11,7 +12,8 @@ const Catalogue = () => {
 
       <div className="app__c-fields">
         <Fields selected={selected} setSelected={setSelected} />
-        <img
+        <motion.img
+          whileHover={{ scale: 1.2 }}
           src={
             selected?.imageurl
               ? urlFor(selected?.imageurl)

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Autocomplete } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import DescriptionIcon from "@mui/icons-material/Description";
 import CategoryIcon from "@mui/icons-material/Category";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
