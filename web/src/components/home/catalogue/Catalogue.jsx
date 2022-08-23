@@ -3,12 +3,16 @@ import "./catalogue.scss";
 import Fields from "./fields/Fields";
 import { motion } from "framer-motion";
 import { urlFor } from "../../../client";
+import { useNavigate } from "react-router-dom";
 
 const Catalogue = () => {
+  const navigate = useNavigate()
   const [selected, setSelected] = useState([]);
   return (
     <div className="app__c">
-      <p className="app__c-logo">OHL-CATALOGUE</p>
+      <p className="app__c-logo" 
+      onClick={() => navigate("/", { replace: false })}
+      >OHL-CATALOGUE</p>
 
       <div className="app__c-fields">
         <Fields selected={selected} setSelected={setSelected} />

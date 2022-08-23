@@ -1,4 +1,4 @@
-import "./home.css";
+import "./home.scss";
 import { motion } from "framer-motion";
 import Button from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
@@ -21,7 +21,7 @@ const Home = () => {
             size="large"
             variant="contained"
             endIcon={<PlayArrowIcon />}
-            onClick={() => navigate("/catalogue", { replace: true })}
+            onClick={() => navigate("/catalogue", { replace: false })}
           >
             Start
           </Button>
