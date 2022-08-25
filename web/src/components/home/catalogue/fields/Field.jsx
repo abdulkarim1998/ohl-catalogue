@@ -13,8 +13,8 @@ const Field = ({ Icon, fieldName, value }) => {
           transition: { duration: 0.2 },
         }}
       >
-        <Icon />
-        <span>{fieldName}</span>
+        {/* <Icon /> */}
+        {/* <span>{fieldName}</span> */}
         <span style={{ color: "blue" }}>{value}</span>
       </motion.div>
     </>
