@@ -1,8 +1,8 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { client } from "../../../../client";
-import Field from "../fields/Field";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
+import Item from "../fields/Item";
 
 const fetchWithNumber = async (number) => {
   var item;
@@ -58,11 +58,10 @@ const Files = () => {
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Drawings" />}
       />
-      {items.map((item) => (
-        <Field
-          Icon={FeaturedPlayListIcon}
-          fieldName="Item Name"
-          value={item.materialName}
+      {items.map((item) => ( item &&
+        <Item
+          value={item?.materialName}
+          id={item?.itemID}
         />
       ))}
     </div>

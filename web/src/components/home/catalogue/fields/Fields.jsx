@@ -6,29 +6,36 @@ import CategoryIcon from "@mui/icons-material/Category";
 import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import BarChartIcon from "@mui/icons-material/BarChart";
-
-import { client } from "../../../../client";
+import { motion } from "framer-motion";
+import { urlFor,client } from "../../../../client";
 
 import "./fields.scss";
 import Field from "./Field";
+import { useParams } from "react-router-dom";
 
-const Fields = ({ selected, setSelected }) => {
+const Fields = () => {
+
+  const {id} = useParams()
+
+
   const [items, setItems] = useState([]);
-
+  const [selected, setSelected] = useState();
   useEffect(() => {
     const query = '*[_type=="materials"]';
-
     client
       .fetch(query)
       .then((data) => {
         setItems(data);
+        if(id) {
+          setSelected(data.find(item => item.itemID == id))
+        }
       })
       .catch((err) => console.log(err));
   }, []);
-
   const selection = items.map((item) => {
     return { label: item.materialName, id: item._id };
   });
+
 
   return (
     <div style={{ width: "100%" }}>
@@ -73,6 +80,15 @@ const Fields = ({ selected, setSelected }) => {
         fieldName="Material Description"
         value={selected?.materialDescription}
       />
+          <motion.img
+          whileHover={{ scale: 1.2 }}
+          src={
+            selected?.imageurl
+              ? urlFor(selected?.imageurl)
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+          }
+          alt="ranjo stenja"
+        />
     </div>
   );
 };
