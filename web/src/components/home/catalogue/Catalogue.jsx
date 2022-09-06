@@ -4,7 +4,6 @@ import "./catalogue.scss";
 
 const Catalogue = ({children}) => {
   const isInItems = window.location.href.split('/').includes('items')
-  console.log(isInItems);
   const navigate = useNavigate()
   return (
     <div className="app__c">
