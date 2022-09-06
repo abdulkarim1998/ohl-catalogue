@@ -1,0 +1,18 @@
+.app__preview {
+    display: flex;
+    flex-direction: column;  
+    // background-color: red;
+    // justify-content: flex-end;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 30px 40px 0 rgb(16 36 94 / 20%);
+}
+
+.react-pdf__Document {
+    border-radius: 8px !important;
+    max-width: 100%;
+}
+.react-pdf__Page {
+    border-radius: 8px !important;
+
+}

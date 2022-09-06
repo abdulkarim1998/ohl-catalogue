@@ -1,8 +1,8 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { client } from "../../../../client";
-import FeaturedPlayListIcon from "@mui/icons-material/FeaturedPlayList";
 import Item from "../fields/Item";
+import Preview from "./Preview";
 
 const fetchWithNumber = async (number) => {
   var item;
@@ -58,12 +58,11 @@ const Files = () => {
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} label="Drawings" />}
       />
-      {items.map((item) => ( item &&
-        <Item
-          value={item?.materialName}
-          id={item?.itemID}
-        />
-      ))}
+      {items.map(
+        (item) => item && <Item value={item?.materialName} id={item?.itemID} />
+      )}
+
+      {selected && <Preview selected={selected} />}
     </div>
   );
 };
