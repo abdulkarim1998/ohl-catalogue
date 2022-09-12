@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { client } from "../../../../client";
+
 import RedoIcon from "@mui/icons-material/Redo";
 import UndoIcon from "@mui/icons-material/Undo";
+import DownloadIcon from "@mui/icons-material/Download";
+
 import { IconButton } from "@mui/material";
 import "./preview.scss";
 
@@ -13,7 +15,6 @@ const getUrlFromId = (ref) => {
   // We don't need the first part, unless we're using the same function for files and images
   const [_file, id, extension] = ref.split("-");
 
-  client.fetch();
   return `https://cdn.sanity.io/files/1pw49hcr/production/${id}.${extension}`;
 };
 
@@ -28,32 +29,47 @@ const Preview = ({ selected }) => {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
+
+  function download() {
+    const link = document.createElement("a");
+    link.href = getUrlFromId(selected?.pdf.asset._ref);
+    link.target = "_blank";
+    link.click();
+  }
+
   return (
-    <div>
-      {/* <a href={getUrlFromId(selected?.pdf.asset._ref)} target="_blank">
-        preview in new tab
-      </a> */}
-
-      <IconButton onClick={() => setDegree((prev) => prev - QUARTER_CIRCLR)}>
-        <UndoIcon />
-      </IconButton>
-
-      <IconButton onClick={() => setDegree((prev) => prev + QUARTER_CIRCLR)}>
-        <RedoIcon />
-      </IconButton>
-
-      <div
-        className="app__preview"
-        style={{ transform: `rotate(${degree}deg)`, margin: "none" }}
-      >
-        <Document
-          file={getUrlFromId(selected?.pdf.asset._ref)}
-          onLoadSuccess={onDocumentLoadSuccess}
+    <>
+      <div className="app_preview-icons">
+        {/* <IconButton
+          style={{ color: "white" }}
+          onClick={() => setDegree((prev) => prev - QUARTER_CIRCLR)}
         >
-          <Page pageNumber={pageNumber} />
-        </Document>
+          <UndoIcon />
+        </IconButton>
+
+        <IconButton
+          style={{ color: "white" }}
+          onClick={() => setDegree((prev) => prev + QUARTER_CIRCLR)}
+        >
+          <RedoIcon />
+        </IconButton> */}
+
+        <IconButton
+          onClick={download}
+          style={{ color: "white", marginLeft: 20 }}
+        >
+          <DownloadIcon />
+        </IconButton>
       </div>
-    </div>
+
+      <Document
+        file={getUrlFromId(selected?.pdf.asset._ref)}
+        onLoadSuccess={onDocumentLoadSuccess}
+        rotate={270}
+      >
+        <Page pageNumber={pageNumber} />
+      </Document>
+    </>
   );
 };
 
