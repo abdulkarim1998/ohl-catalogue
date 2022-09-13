@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-
-import RedoIcon from "@mui/icons-material/Redo";
-import UndoIcon from "@mui/icons-material/Undo";
 import DownloadIcon from "@mui/icons-material/Download";
 
 import { IconButton } from "@mui/material";
@@ -40,20 +37,6 @@ const Preview = ({ selected }) => {
   return (
     <>
       <div className="app_preview-icons">
-        {/* <IconButton
-          style={{ color: "white" }}
-          onClick={() => setDegree((prev) => prev - QUARTER_CIRCLR)}
-        >
-          <UndoIcon />
-        </IconButton>
-
-        <IconButton
-          style={{ color: "white" }}
-          onClick={() => setDegree((prev) => prev + QUARTER_CIRCLR)}
-        >
-          <RedoIcon />
-        </IconButton> */}
-
         <IconButton
           onClick={download}
           style={{ color: "white", marginLeft: 20 }}
