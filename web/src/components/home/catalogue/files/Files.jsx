@@ -20,6 +20,7 @@ const Files = () => {
   const [items, setItems] = useState([]);
   const [selections, setSelections] = useState([]);
   const [open, setOpen] = useState(false);
+  const [field, setField] = useState("");
 
   useEffect(() => {
     setSelections([...drawings]);
@@ -27,7 +28,7 @@ const Files = () => {
 
   const change = (e) => {
     const { value } = e.target;
-
+    setField(value);
     if (!value) {
       setSelections([...drawings]);
 
@@ -82,6 +83,8 @@ const Files = () => {
     const results = await Promise.all(promises);
     setItems(results);
     setSelected(find);
+    setSelections([...drawings]);
+    setField("");
   };
 
   return (
@@ -89,7 +92,8 @@ const Files = () => {
       <TextField
         onClick={() => setOpen(!open)}
         onChange={change}
-        label={selected?.materialName}
+        label={selected?.drawingName}
+        value={field}
         variant="outlined"
         style={{
           width: "100%",

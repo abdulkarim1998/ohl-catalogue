@@ -21,6 +21,7 @@ const Fields = () => {
   const [selections, setSelections] = useState([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState();
+  const [field, setField] = useState("");
 
   useEffect(() => {
     setSelections([...items]);
@@ -31,7 +32,7 @@ const Fields = () => {
 
   const change = (e) => {
     const { value } = e.target;
-
+    setField(value);
     if (!value) {
       setSelections([...items]);
 
@@ -82,6 +83,8 @@ const Fields = () => {
     const find = items.find((item) => item.materialName == value);
     setSelected(find);
     setOpen(false);
+    setField("");
+    setSelections([...items]);
   };
 
   return (
@@ -90,6 +93,7 @@ const Fields = () => {
         onClick={handleOnClick}
         onChange={change}
         label={selected?.materialName}
+        value={field}
         variant="outlined"
         style={{
           width: "100%",
