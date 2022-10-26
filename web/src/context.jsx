@@ -5,6 +5,8 @@ const CatalogueContext = createContext({
   setItems: () => undefined,
   drawings: [],
   setDrawings: () => undefined,
+  mode: "light",
+  setMode: () => undefined,
 });
 
 export const useCatalogue = () => {
@@ -14,6 +16,7 @@ export const useCatalogue = () => {
 const Provider = ({ children }) => {
   const [items, setItems] = useState([]);
   const [drawings, setDrawings] = useState([]);
+  const [mode, setMode] = useState("light");
 
   useEffect(() => {
     const query = '*[_type=="drawings"]';
@@ -35,9 +38,15 @@ const Provider = ({ children }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem("mode")) {
+      setMode(localStorage.getItem("mode"));
+    }
+  }, []);
+
   return (
     <CatalogueContext.Provider
-      value={{ items, setItems, drawings, setDrawings }}
+      value={{ items, setItems, drawings, setDrawings, mode, setMode }}
     >
       {children}
     </CatalogueContext.Provider>

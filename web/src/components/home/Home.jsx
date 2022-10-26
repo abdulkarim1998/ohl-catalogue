@@ -2,15 +2,17 @@ import "./home.scss";
 import { motion } from "framer-motion";
 import Button from "@mui/material/Button";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import {  useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+import { Typography, Card } from "@mui/material";
 
 const Home = () => {
   const navigate = useNavigate();
 
   return (
     <div className="app__home">
-      <h1 className="app__home-welcome">Welcome To OHL Catalogue</h1>
+      <Typography variant="h4" className="app__home-welcome">
+        Welcome To OHL Catalogue
+      </Typography>
       <div className="app__home-innerDiv">
         <motion.div
           initial={{ opacity: 0 }}

@@ -1,16 +1,22 @@
-
+.app__home {
+    overflow: hidden !important;
+}
 .app__home-welcome {
-    color: aqua;
-    font-size:x-large;
     height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
+
+
+    background: linear-gradient(to right, #007fff, #0059b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
 }
 
 .app__home-innerDiv {
-    height: 90vh;
     display: flex;
+    height: 90vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;

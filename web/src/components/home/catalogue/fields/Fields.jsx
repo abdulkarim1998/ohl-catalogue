@@ -17,7 +17,7 @@ import { useCatalogue } from "../../../../context";
 const Fields = () => {
   const { id } = useParams();
 
-  const { items } = useCatalogue();
+  const { items, mode } = useCatalogue();
   const [selections, setSelections] = useState([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState();
@@ -97,7 +97,7 @@ const Fields = () => {
         variant="outlined"
         style={{
           width: "100%",
-          backgroundColor: "white",
+          backgroundColor: mode == "light" ? "white" : "#121212",
           cursor: "pointer",
           borderRadius: "10px",
         }}
@@ -107,7 +107,8 @@ const Fields = () => {
           <MenuItem
             style={{
               width: "100%",
-              backgroundColor: "white",
+              backgroundColor: mode == "light" ? "white" : "#121212",
+              color: mode == "light" ? "black" : "white",
               borderRadius: "3px",
             }}
             onClick={select}
@@ -121,42 +122,52 @@ const Fields = () => {
             {item.searchName ? item.searchName : item.materialName}
           </MenuItem>
         ))}
-
-      <Field
-        Icon={CategoryIcon}
-        fieldName="Material Name"
-        value={selected?.materialName}
-      />
-      <Field
-        Icon={FeaturedPlayListIcon}
-        fieldName="Item ID"
-        value={selected?.itemID}
-      />
-      <Field
-        Icon={ConfirmationNumberIcon}
-        fieldName="Hookup Number"
-        value={selected?.hookupNo}
-      />
-      <Field
-        Icon={ConfirmationNumberIcon}
-        fieldName="Sap Number"
-        value={selected?.sapNumber}
-      />
-      <Field Icon={BarChartIcon} fieldName="unit" value={selected?.unit} />
-      <Field
-        Icon={DescriptionIcon}
-        fieldName="Material Description"
-        value={selected?.materialDescription}
-      />
-      <motion.img
-        whileHover={{ scale: 1.2 }}
-        src={
-          selected?.imageurl
-            ? urlFor(selected?.imageurl)
-            : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
-        }
-        alt="ranjo stenja"
-      />
+      <div className="app__fields-MADness">
+        <div
+          className="app__fields-fields"
+          style={{
+            display: "flex",
+            flex: "1",
+            flexDirection: "column",
+          }}
+        >
+          <Field
+            Icon={CategoryIcon}
+            fieldName="Material Name"
+            value={selected?.materialName}
+          />
+          <Field
+            Icon={FeaturedPlayListIcon}
+            fieldName="Item ID"
+            value={selected?.itemID}
+          />
+          <Field
+            Icon={ConfirmationNumberIcon}
+            fieldName="Hookup Number"
+            value={selected?.hookupNo}
+          />
+          <Field
+            Icon={ConfirmationNumberIcon}
+            fieldName="Sap Number"
+            value={selected?.sapNumber}
+          />
+          <Field Icon={BarChartIcon} fieldName="unit" value={selected?.unit} />
+          <Field
+            Icon={DescriptionIcon}
+            fieldName="Material Description"
+            value={selected?.materialDescription}
+          />
+        </div>
+        <motion.img
+          whileHover={{ scale: 1.2 }}
+          src={
+            selected?.imageurl
+              ? urlFor(selected?.imageurl)
+              : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png"
+          }
+          alt="ranjo stenja"
+        />
+      </div>
     </div>
   );
 };

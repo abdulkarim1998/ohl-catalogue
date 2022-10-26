@@ -1,11 +1,32 @@
 .app__fields-card {
-    background: rgb(190, 189, 189);
-    margin-top: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
     height: 3rem;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 10px;
+    border-radius: 20px;
 
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+
+
+.app__fields-MADness {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+
+.app__fields-fields {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .app__fields-MADness {
+        flex-direction: column;
+    }   
 }

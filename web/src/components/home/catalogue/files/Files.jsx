@@ -14,7 +14,7 @@ const fetchWithNumber = async (number) => {
 };
 
 const Files = () => {
-  const { drawings, items: s } = useCatalogue();
+  const { drawings, items: s, mode } = useCatalogue();
 
   const [selected, setSelected] = useState();
   const [items, setItems] = useState([]);
@@ -97,7 +97,7 @@ const Files = () => {
         variant="outlined"
         style={{
           width: "100%",
-          backgroundColor: "white",
+          backgroundColor: mode == "light" ? "white" : "#121212",
           cursor: "pointer",
           borderRadius: "10px",
         }}
@@ -108,7 +108,8 @@ const Files = () => {
           <MenuItem
             style={{
               width: "100%",
-              backgroundColor: "white",
+              backgroundColor: mode == "light" ? "white" : "#121212",
+              color: mode == "light" ? "black" : "white",
               borderRadius: "3px",
             }}
             onClick={select}
@@ -123,9 +124,12 @@ const Files = () => {
           </MenuItem>
         ))}
 
-      {items.map(
-        (item) => item && <Item value={item?.materialName} id={item?.itemID} />
-      )}
+      <div style={{ marginTop: "10px" }}>
+        {items.map(
+          (item) =>
+            item && <Item value={item?.materialName} id={item?.itemID} />
+        )}
+      </div>
 
       {selected && <Preview selected={selected} />}
     </div>
