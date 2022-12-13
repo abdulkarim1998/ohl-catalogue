@@ -45,6 +45,12 @@ export default {
             options: {
                 hotspot: true,
             }
-        }
+        },
+        {
+            name: 'AVME',
+            title: 'AVME',
+            type: 'array',
+            of: [{type: 'string'}]
+        },
     ]
 }

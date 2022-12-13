@@ -4,23 +4,39 @@ import { client } from "../../../../client";
 import Item from "../fields/Item";
 import Preview from "./Preview";
 import { useCatalogue } from "../../../../context";
-
-const fetchWithNumber = async (number) => {
-  var item;
-  const type = number.length > 3 ? "sapNumber" : "hookupNo";
-  const query = `*[_type=="materials" && ${type} == "${number}"]`;
-  const result = await client.fetch(query);
-  return result[0];
-};
+import { useNavigate } from "react-router-dom";
 
 const Files = () => {
-  const { drawings, items: s, mode } = useCatalogue();
-
+  const { drawings, items: s, mode, back, setBack } = useCatalogue();
   const [selected, setSelected] = useState();
   const [items, setItems] = useState([]);
   const [selections, setSelections] = useState([]);
   const [open, setOpen] = useState(false);
   const [field, setField] = useState("");
+
+  const navigate = useNavigate();
+
+  const fetchWithNumber2 = (number) => {
+    const type = number.length > 3 ? "sapNumber" : "hookupNo";
+    let item;
+    if (type == "sapNumber") {
+      item = s.find((item) => item.sapNumber == number);
+    } else {
+      item = s.find((item) => item.hookupNo == number);
+    }
+
+    return item;
+  };
+
+  useEffect(() => {
+    if (back) {
+      const list = back.itemsNumbers
+        .map((item) => fetchWithNumber2(item))
+        .filter((item) => item != undefined);
+      setItems(list);
+      setSelected(back);
+    }
+  }, []);
 
   useEffect(() => {
     setSelections([...drawings]);
@@ -35,7 +51,7 @@ const Files = () => {
       return;
     }
 
-    const found = [];
+    let found = [];
     drawings.forEach((d) => {
       Object.entries(d).forEach((entry) => {
         const type = entry[0];
@@ -47,7 +63,9 @@ const Files = () => {
           type == "_updatedAt" ||
           type == "pdf" ||
           type == "description" ||
-          type == "itemsNumbers"
+          type == "itemsNumbers" ||
+          type == "_rev" ||
+          type == "imageurl"
         ) {
           return;
         }
@@ -58,33 +76,69 @@ const Files = () => {
       });
     });
 
-    setSelections(
-      found.map((d) => {
-        return {
-          ...d.drawing,
-          searchName: `${d.type} ---> ${d.drawing.drawingName}`,
-        };
-      })
-    );
-  };
+    const firstSelection = found.map((d) => {
+      return {
+        ...d.drawing,
+        searchName: `Drawing --> ${d.type} ---> ${d.drawing.drawingName}`,
+      };
+    });
 
+    found = [];
+    s.forEach((item) => {
+      Object.entries(item).forEach((entry) => {
+        const type = entry[0];
+        if (
+          type == "_id" ||
+          type == "_createdAt" ||
+          type == "_rev" ||
+          type == "_type" ||
+          type == "_updatedAt" ||
+          type == "imageurl" ||
+          type == "itemDescription" ||
+          type == "AVME"
+        ) {
+          return;
+        }
+
+        if (entry[1].toLowerCase().includes(value.toLowerCase())) {
+          found.push({ type: entry[0], item: item });
+        }
+      });
+    });
+
+    const newSelection = found.map((item) => {
+      return {
+        ...item.item,
+        searchName: `Material --> ${item.type} ---> ${item.item.materialName}`,
+      };
+    });
+    setSelections([...firstSelection, ...newSelection]);
+  };
   const select = async (e) => {
     let value = e.target.innerText;
+
     setOpen(false);
     if (value.split("--->").length > 1) {
       value = value.split("--->")[1].trim();
     }
+    if (e.target.innerText.includes("Material")) {
+      const find = s.find((item) => item.materialName == value);
+      navigate(`/catalogue/items/${find.itemID}`, {
+        replace: false,
+      });
+      return;
+    }
     const find = drawings.find((d) => d.drawingName == value);
-    let promises = [];
-    find.itemsNumbers.forEach((number) => {
-      promises.push(fetchWithNumber(number));
-    });
 
-    const results = await Promise.all(promises);
-    setItems(results);
+    const list = find.itemsNumbers
+      .map((item) => fetchWithNumber2(item))
+      .filter((item) => item != undefined);
+
+    setItems(list);
     setSelected(find);
     setSelections([...drawings]);
     setField("");
+    setBack(find);
   };
 
   return (
@@ -127,7 +181,13 @@ const Files = () => {
       <div style={{ marginTop: "10px" }}>
         {items.map(
           (item) =>
-            item && <Item value={item?.materialName} id={item?.itemID} />
+            item && (
+              <Item
+                value={item?.materialName}
+                file={selected?._id}
+                id={item?.itemID}
+              />
+            )
         )}
       </div>
 

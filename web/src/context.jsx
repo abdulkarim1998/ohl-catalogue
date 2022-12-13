@@ -7,6 +7,8 @@ const CatalogueContext = createContext({
   setDrawings: () => undefined,
   mode: "light",
   setMode: () => undefined,
+  back: null,
+  setBack: () => undefined,
 });
 
 export const useCatalogue = () => {
@@ -17,6 +19,7 @@ const Provider = ({ children }) => {
   const [items, setItems] = useState([]);
   const [drawings, setDrawings] = useState([]);
   const [mode, setMode] = useState("light");
+  const [back, setBack] = useState(null);
 
   useEffect(() => {
     const query = '*[_type=="drawings"]';
@@ -46,7 +49,16 @@ const Provider = ({ children }) => {
 
   return (
     <CatalogueContext.Provider
-      value={{ items, setItems, drawings, setDrawings, mode, setMode }}
+      value={{
+        items,
+        setItems,
+        drawings,
+        setDrawings,
+        mode,
+        setMode,
+        back,
+        setBack,
+      }}
     >
       {children}
     </CatalogueContext.Provider>

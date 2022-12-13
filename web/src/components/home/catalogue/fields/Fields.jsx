@@ -11,17 +11,19 @@ import { urlFor, client } from "../../../../client";
 
 import "./fields.scss";
 import Field from "./Field";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCatalogue } from "../../../../context";
 
 const Fields = () => {
   const { id } = useParams();
 
-  const { items, mode } = useCatalogue();
+  const { drawings, items, mode, setBack } = useCatalogue();
   const [selections, setSelections] = useState([]);
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState();
   const [field, setField] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelections([...items]);
@@ -39,7 +41,39 @@ const Fields = () => {
       return;
     }
 
-    const found = [];
+    let found = [];
+    drawings.forEach((d) => {
+      Object.entries(d).forEach((entry) => {
+        const type = entry[0];
+        if (
+          type == "_id" ||
+          type == "_createdAt" ||
+          type == "_rev" ||
+          type == "_type" ||
+          type == "_updatedAt" ||
+          type == "pdf" ||
+          type == "description" ||
+          type == "itemsNumbers" ||
+          type == "_rev" ||
+          type == "imageurl"
+        ) {
+          return;
+        }
+
+        if (entry[1].toLowerCase().includes(value.toLowerCase())) {
+          found.push({ type: entry[0], drawing: d });
+        }
+      });
+    });
+
+    const firstSelection = found.map((d) => {
+      return {
+        ...d.drawing,
+        searchName: `Drawing --> ${d.type} ---> ${d.drawing.drawingName}`,
+      };
+    });
+
+    found = [];
     items.forEach((item) => {
       Object.entries(item).forEach((entry) => {
         const type = entry[0];
@@ -50,7 +84,8 @@ const Fields = () => {
           type == "_type" ||
           type == "_updatedAt" ||
           type == "imageurl" ||
-          type == "itemDescription"
+          type == "itemDescription" ||
+          type == "AVME"
         ) {
           return;
         }
@@ -61,14 +96,13 @@ const Fields = () => {
       });
     });
 
-    setSelections(
-      found.map((item) => {
-        return {
-          ...item.item,
-          searchName: `${item.type} ---> ${item.item.materialName}`,
-        };
-      })
-    );
+    const newSelection = found.map((item) => {
+      return {
+        ...item.item,
+        searchName: `Material --> ${item.type} ---> ${item.item.materialName}`,
+      };
+    });
+    setSelections([...newSelection, ...firstSelection]);
   };
 
   const handleOnClick = () => {
@@ -80,6 +114,16 @@ const Fields = () => {
     if (value.split("--->").length > 1) {
       value = value.split("--->")[1].trim();
     }
+
+    if (e.target.innerText.includes("Drawing")) {
+      const find = drawings.find((d) => d.drawingName == value);
+      setBack(find);
+      navigate("/catalogue", {
+        replace: false,
+      });
+      return;
+    }
+
     const find = items.find((item) => item.materialName == value);
     setSelected(find);
     setOpen(false);
@@ -135,16 +179,6 @@ const Fields = () => {
             Icon={CategoryIcon}
             fieldName="Material Name"
             value={selected?.materialName}
-          />
-          <Field
-            Icon={FeaturedPlayListIcon}
-            fieldName="Item ID"
-            value={selected?.itemID}
-          />
-          <Field
-            Icon={ConfirmationNumberIcon}
-            fieldName="Hookup Number"
-            value={selected?.hookupNo}
           />
           <Field
             Icon={ConfirmationNumberIcon}

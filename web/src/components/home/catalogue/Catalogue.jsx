@@ -1,10 +1,13 @@
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useCatalogue } from "../../../context";
 import "./catalogue.scss";
 
 const Catalogue = ({ children }) => {
   const isInItems = window.location.href.split("/").includes("items");
+  const { back } = useCatalogue();
   const navigate = useNavigate();
+
   return (
     <div className="app__c">
       <Typography
@@ -14,6 +17,18 @@ const Catalogue = ({ children }) => {
       >
         OHL-CATALOGUE
       </Typography>
+      {isInItems && back && (
+        <Button
+          onClick={() =>
+            navigate(isInItems ? "/catalogue" : "/catalogue/items", {
+              replace: false,
+            })
+          }
+        >
+          GO back
+        </Button>
+      )}
+
       <Button
         onClick={() =>
           navigate(isInItems ? "/catalogue" : "/catalogue/items", {
