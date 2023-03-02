@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
 import "./App.css";
-import { NavbarMinimal } from "./components/Navbar";
 import {
   MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
   Tabs,
+  Modal,
 } from "@mantine/core";
 import { HeaderAction } from "./components/Header";
 import { IconToolsKitchen, IconWriting } from "@tabler/icons";
@@ -13,6 +13,7 @@ import Drawings from "./components/Drawings";
 import Materials from "./components/Materials";
 import Provider from "./context/context";
 import Fuse from "./Fuse";
+import DisplayModal from "./components/DisplayModal";
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -40,8 +41,6 @@ function App() {
             <Fuse />
             <HeaderAction />
             <div style={{ display: "flex" }}>
-              <NavbarMinimal />
-
               <div style={{ margin: "5px" }}></div>
               <div style={{ marginTop: "5px" }}>
                 <Tabs defaultValue="materials" style={{ marginBottom: 10 }}>
@@ -62,6 +61,7 @@ function App() {
                 </Tabs>
               </div>
             </div>
+            <DisplayModal />
           </MantineProvider>
         </ColorSchemeProvider>
       </div>

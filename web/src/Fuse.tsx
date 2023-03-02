@@ -4,9 +4,10 @@ import { useCatalogue } from "./context/context";
 import { Input, Modal } from "@mantine/core";
 import { IconSearch } from "@tabler/icons";
 import styles from "./fuse.module.scss";
+import { Drawing, Material } from "./types/types";
 const TestFuse = () => {
   const [pattern, setPattern] = useState("");
-  const { materials, modal, setModal } = useCatalogue();
+  const { materials, modal, setModal, setItemFromFuse } = useCatalogue();
   const options = {
     shouldSort: true,
     distance: 60,
@@ -18,7 +19,11 @@ const TestFuse = () => {
   const fuse = new Fuse(materials, options);
 
   const found = fuse.search(pattern);
-  console.log(materials);
+
+  const choose = (item: Material | Drawing) => {
+    setModal(false);
+    setItemFromFuse(item);
+  };
 
   return (
     <Modal
@@ -38,7 +43,9 @@ const TestFuse = () => {
       />
       <>
         {found.map(({ item }) => (
-          <div className={styles.menu}>{item.materialName}</div>
+          <div className={styles.menu} onClick={() => choose(item)}>
+            {item.materialName}
+          </div>
         ))}
       </>
     </Modal>

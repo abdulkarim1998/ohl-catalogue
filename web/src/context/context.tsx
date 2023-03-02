@@ -15,6 +15,8 @@ interface Context {
   setModal: Dispatch<SetStateAction<boolean>>;
   materials: Material[];
   drawings: Drawing[];
+  itemFromFuse: Material | Drawing | undefined;
+  setItemFromFuse: Dispatch<SetStateAction<Material | Drawing | undefined>>;
 }
 
 const Context: React.Context<Context> = createContext({
@@ -22,12 +24,17 @@ const Context: React.Context<Context> = createContext({
   setModal: () => undefined,
   materials: [] as Material[],
   drawings: [] as Drawing[],
+  itemFromFuse: null,
+  setItemFromFuse: () => undefined,
 });
 
 const Provider = ({ children }: PropsWithChildren) => {
   const [modal, setModal] = useState(false);
   const [materials, setMaterials] = useState<Material[]>([]);
   const [drawings, setDrawings] = useState<Drawing[]>([]);
+  const [itemFromFuse, setItemFromFuse] = useState<
+    Material | Drawing | undefined
+  >();
 
   useEffect(() => {
     const query = '*[_type=="drawings"]';
@@ -56,6 +63,8 @@ const Provider = ({ children }: PropsWithChildren) => {
         setModal,
         materials,
         drawings,
+        itemFromFuse,
+        setItemFromFuse,
       }}
     >
       {children}

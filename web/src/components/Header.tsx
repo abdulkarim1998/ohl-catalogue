@@ -7,11 +7,16 @@ import {
   Group,
   Button,
   Burger,
+  Kbd,
+  Box,
+  useMantineColorScheme,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { IconChevronDown } from "@tabler/icons";
 import { MantineLogo } from "@mantine/ds";
 import DarkMode from "./DarkModeButton";
+import styles from "./header.module.scss";
+import { IconSearch } from "@tabler/icons";
+import { useCatalogue } from "../context/context";
 
 const HEADER_HEIGHT = 60;
 
@@ -71,6 +76,9 @@ interface HeaderActionProps {
 
 export function HeaderAction({ links }: HeaderActionProps) {
   const { classes } = useStyles();
+  const { colorScheme } = useMantineColorScheme();
+  const { modal, setModal } = useCatalogue();
+
   const items = links?.map((link) => {
     const menuItems = link.links?.map((item) => (
       <Menu.Item key={item.link}>{item.label}</Menu.Item>
@@ -117,7 +125,21 @@ export function HeaderAction({ links }: HeaderActionProps) {
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>
-        <DarkMode />
+        <Group>
+          <Box
+            className={
+              colorScheme == "light" ? styles.searchLight : styles.searchDark
+            }
+            onClick={() => setModal(!modal)}
+          >
+            <div>
+              <IconSearch />
+              <p>Search</p>
+            </div>
+            <Kbd>/</Kbd>
+          </Box>
+          <DarkMode />
+        </Group>
       </Container>
     </Header>
   );

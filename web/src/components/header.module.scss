@@ -1,0 +1,71 @@
+.searchDark {
+  padding: 3px;
+  width: 190px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.0625rem solid rgb(55, 58, 64);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: rgb(144, 146, 150);
+  background-color: rgb(37, 38, 43);
+
+  &:hover {
+    background-color: rgb(41, 41, 43);
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    p {
+      margin-left: 10px;
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  kbd {
+    background-color: rgb(26, 27, 30);
+    font-size: 8px;
+    margin-right: 2px;
+  }
+}
+
+.searchLight {
+  padding: 3px;
+  width: 190px;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.0625rem solid #dee2e6;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: #adb5bd;
+  background-color: #fff;
+
+  &:hover {
+    background-color: rgb(235, 235, 235);
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    p {
+      margin-left: 10px;
+    }
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  kbd {
+    background-color: #f8f9fa;
+    font-size: 8px;
+    margin-right: 2px;
+  }
+}
