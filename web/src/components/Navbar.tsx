@@ -21,6 +21,7 @@ import {
   IconSwitchHorizontal,
 } from "@tabler/icons";
 import { MantineLogo } from "@mantine/ds";
+import { useCatalogue } from "../context/context";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -88,6 +89,7 @@ const mockdata = [
 
 export function NavbarMinimal() {
   const [active, setActive] = useState(2);
+  const { setModal, modal } = useCatalogue();
 
   const links = mockdata.map((link, index) => (
     <NavbarLink
@@ -100,6 +102,7 @@ export function NavbarMinimal() {
 
   return (
     <Navbar height={750} width={{ base: 80 }} p="md">
+      <button onClick={() => setModal(!modal)}>Open modal</button>
       <Navbar.Section grow mt={50}>
         <Stack justify="center" spacing={0}>
           {links}

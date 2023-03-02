@@ -1,23 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import { NavbarMinimal } from "./components/Navbar";
 import {
   MantineProvider,
   ColorScheme,
   ColorSchemeProvider,
-  Pagination,
   Tabs,
 } from "@mantine/core";
 import { HeaderAction } from "./components/Header";
-import { Grid } from "@mantine/core";
-import ItemCard from "./components/ItemCard";
-import { client } from "./client";
-import { Drawing, Material } from "./types/types";
 import { IconToolsKitchen, IconWriting } from "@tabler/icons";
-import DrawingCard from "./components/DrawingCard";
 import Drawings from "./components/Drawings";
 import Materials from "./components/Materials";
 import Provider from "./context/context";
+import Fuse from "./Fuse";
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("dark");
@@ -42,6 +37,7 @@ function App() {
             withGlobalStyles
             withNormalizeCSS
           >
+            <Fuse />
             <HeaderAction />
             <div style={{ display: "flex" }}>
               <NavbarMinimal />
