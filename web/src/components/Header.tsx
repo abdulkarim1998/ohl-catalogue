@@ -119,9 +119,6 @@ export function HeaderAction({ links }: HeaderActionProps) {
   return (
     <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }}>
       <Container className={classes.inner} fluid>
-        <Group>
-          <MantineLogo size={28} />
-        </Group>
         <Group spacing={5} className={classes.links}>
           {items}
         </Group>

@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useCatalogue } from "../context/context";
 import ItemCard from "./ItemCard";
 
-const Materials = () => {
+interface MaterialsProps {
+  topRef: React.MutableRefObject<null>;
+}
+
+const Materials = ({ topRef }: MaterialsProps) => {
   const cardsPerPage = 12;
 
   const { materials } = useCatalogue();
@@ -22,7 +26,7 @@ const Materials = () => {
         color="cyan"
         onChange={(e) => {
           setCurrentPage(e);
-          //   topRef.current.scrollIntoView({ behavior: "smooth" });
+          topRef.current.scrollIntoView({ behavior: "smooth" });
         }}
         position="right"
       />
@@ -39,7 +43,7 @@ const Materials = () => {
         color="cyan"
         onChange={(e) => {
           setCurrentPage(e);
-          //   topRef.current.scrollIntoView({ behavior: "smooth" });
+          topRef.current.scrollIntoView({ behavior: "smooth" });
         }}
         position="center"
       />
