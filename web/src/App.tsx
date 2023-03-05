@@ -6,6 +6,7 @@ import {
   ColorSchemeProvider,
   Tabs,
   Modal,
+  Text,
 } from "@mantine/core";
 import { HeaderAction } from "./components/Header";
 import { IconToolsKitchen, IconWriting } from "@tabler/icons";
@@ -53,10 +54,11 @@ function App() {
                     </Tabs.Tab>
                   </Tabs.List>
                   <Tabs.Panel value="materials">
-                    <Materials />
+                    <Materials topRef={topRef} />
                   </Tabs.Panel>
                   <Tabs.Panel value="drawings">
-                    <Drawings />
+                    {/* <Drawings /> */}
+                    <Text variant="text"> Coming Soon </Text>
                   </Tabs.Panel>
                 </Tabs>
               </div>
