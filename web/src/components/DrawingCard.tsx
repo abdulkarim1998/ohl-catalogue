@@ -1,6 +1,7 @@
-import { Card, Text, Button, Group, createStyles, Badge } from "@mantine/core";
+import { Card, Text, Group, createStyles, Badge, Grid } from "@mantine/core";
 import { Drawing, SmallerMaterials } from "../types/types";
 import { Document, Page, pdfjs } from "react-pdf";
+import { useCatalogue } from "../context/context";
 
 interface DrawingCardProps {
   drawing: Drawing;
@@ -29,9 +30,11 @@ const useStyle = createStyles((theme) => ({
 const DrawingCard = ({ drawing, materials }: DrawingCardProps) => {
   const { classes } = useStyle();
 
+  const { materials: allMaterials, setItemFromFuse } = useCatalogue();
+
   return (
     <Card
-      style={{ height: 1000, width: 1190 }}
+      style={{ maxWidth: "70vw" }}
       shadow="sm"
       p="lg"
       radius="md"
@@ -43,18 +46,22 @@ const DrawingCard = ({ drawing, materials }: DrawingCardProps) => {
         </Document>
       </Card.Section>
 
-      <Group position="apart" mt="md" mb="xs">
-        <Text weight={500}> {drawing.drawingName} </Text>
-      </Group>
-
       <p className={classes.descText} color="dimmed">
         {drawing.description}
       </p>
 
-      {materials.map((m) => (
+      <Group position="apart" mt="md" mb="xs">
+        <Text weight={500}> {drawing.drawingName} </Text>
+      </Group>
+
+      {materials?.map((m, i) => (
         <Badge
-          sx={{ ":hover": { backgroundColor: "red" } }}
+          color="cyan"
+          sx={{ ":hover": { backgroundColor: "#70f3f394" } }}
           style={{ height: 30, fontSize: 13, margin: 5, cursor: "pointer" }}
+          onClick={() =>
+            setItemFromFuse(allMaterials.find((mat) => mat.itemID == m.id))
+          }
         >
           {m.name}
         </Badge>

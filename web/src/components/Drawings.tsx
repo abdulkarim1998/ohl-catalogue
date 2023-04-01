@@ -1,8 +1,9 @@
-import { Grid, Pagination } from "@mantine/core";
+import { Box, Grid, Pagination } from "@mantine/core";
 import { useState } from "react";
 import DrawingCard from "./DrawingCard";
 import { useCatalogue } from "../context/context";
 import { SmallerMaterials } from "../types/types";
+import "./drawings.scss";
 
 const Drawings = (): JSX.Element => {
   const cardsPerPage = 10;
@@ -16,6 +17,8 @@ const Drawings = (): JSX.Element => {
   );
 
   const getMaterials = (materialIds: string[]): SmallerMaterials[] => {
+    if (!materialIds) return [];
+
     const findMaterials = materialIds.map((id) => {
       if (id.length > 3) {
         const find = materials.find((m) => m.sapNumber == id);
@@ -40,7 +43,7 @@ const Drawings = (): JSX.Element => {
   };
 
   return (
-    <>
+    <Box>
       <Pagination
         style={{ margin: 20 }}
         total={drawings.length / cardsPerPage}
@@ -53,7 +56,17 @@ const Drawings = (): JSX.Element => {
       />
       <Grid>
         {currentCards.map((d, i) => (
-          <Grid.Col key={i} sm={6} md={12}>
+          <Grid.Col
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            key={i}
+            sm={6}
+            md={12}
+          >
             <DrawingCard drawing={d} materials={getMaterials(d.itemsNumbers)} />
           </Grid.Col>
         ))}
@@ -68,7 +81,7 @@ const Drawings = (): JSX.Element => {
         }}
         position="center"
       />
-    </>
+    </Box>
   );
 };
 

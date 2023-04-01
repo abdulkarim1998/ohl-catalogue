@@ -57,8 +57,7 @@ function App() {
                     <Materials topRef={topRef} />
                   </Tabs.Panel>
                   <Tabs.Panel value="drawings">
-                    {/* <Drawings /> */}
-                    <Text variant="text"> Coming Soon </Text>
+                    <Drawings />
                   </Tabs.Panel>
                 </Tabs>
               </div>

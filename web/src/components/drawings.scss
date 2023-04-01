@@ -1,0 +1,13 @@
+.react-pdf__Document {
+  overflow: auto;
+
+  div {
+    canvas {
+      width: 100% !important;
+    }
+
+    div {
+      height: 0px !important;
+    }
+  }
+}
