@@ -1,7 +1,16 @@
-import { Card, Text, Group, createStyles, Badge, Grid } from "@mantine/core";
+import {
+  Card,
+  Text,
+  Group,
+  createStyles,
+  Badge,
+  Grid,
+  ActionIcon,
+} from "@mantine/core";
 import { Drawing, SmallerMaterials } from "../types/types";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useCatalogue } from "../context/context";
+import { IconAdjustments, IconDownload } from "@tabler/icons";
 
 interface DrawingCardProps {
   drawing: Drawing;
@@ -34,7 +43,7 @@ const DrawingCard = ({ drawing, materials }: DrawingCardProps) => {
 
   return (
     <Card
-      style={{ maxWidth: "70vw" }}
+      style={{ maxWidth: "70vw", position: "relative" }}
       shadow="sm"
       p="lg"
       radius="md"
@@ -45,6 +54,16 @@ const DrawingCard = ({ drawing, materials }: DrawingCardProps) => {
           <Page pageNumber={1} />
         </Document>
       </Card.Section>
+
+      <ActionIcon
+        sx={{ position: "absolute", top: 10, right: 20 }}
+        variant="filled"
+        onClick={() => {
+          window.open(getUrlFromId(drawing?.pdf.asset._ref), "_blank");
+        }}
+      >
+        <IconDownload size="2rem" />
+      </ActionIcon>
 
       <p className={classes.descText} color="dimmed">
         {drawing.description}
